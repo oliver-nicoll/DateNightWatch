@@ -1,5 +1,10 @@
 class TRIVIA::CLI
 
-    puts ' Hello!, this is the cli file'
+    def greeting
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts " Welcome! Enjoy this time with your significant other and play some trivia!"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    end
+
 
 end

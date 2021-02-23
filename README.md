@@ -1,31 +1,29 @@
 # DateNightWatch
 Need date night ideas, we got you.
 
-to do: with a short description, install instructions, a contributors guide and a link to the license for your code (students usually use the [MIT license](https://opensource.org/licenses/MIT)).
+to do: with a short description, install instructions, a contributors guide and a link to the license for your code 
 
 
 Who is my User?
 
-	target a couple who are in need of date night movie ideas.
+	target a couple who are in need of date night trivia game night.
 
 What is their pain point?
 
-	Covid hit relationships hard and we are in need of some at home date nights.
-    When thinking of their next movie date night, they look for certain genres of a movie but ultimately they look for something they both will enjoy. Nothing better than Disney classics.
+	Covid hit relationships hard and we are in need of some at home date nights fun.
+    When thinking of their next date night most people think "Oh, let's do a movie... it's quick and easy and perfect". Need to switch it up? Is it your millionth time watching a movie? Why not try trivia game night? 
 
 How do they use our solution to overcome this problem?
 
-	The couple starts the app and will be greeted with “Hello, type in the genre of the kind of movie you're looking for!"
-	Once input is entered, they will be propted with “Great choice, now do you wish to see the synoptsis or go back? ”
+	The couple starts the app and will be greeted with “ Welcome! Enjoy this time with your significant other and play some trivia!"
+	Then they will later be asked on one of 3 basic genres or an All topic, level extreme. 
 	
-	The couple chooses a potential movie but can go back and see the descriptions of other ones they might be interested in. 
+	Are you the couple to face adversity and come back stronger with your communication skills? Will you beat that ultimate challenge?
+	
+	At the end you will be told how many you got right out of 18 questions. 
 
+	Remember this isn't Monopoly, no flipping tables!
 
-
-CHOOSING YOUR CLASSES
-
-What roles would I be hiring?
-	Movie buff: gives the descriptions of the movies
 
     
 
