@@ -3,6 +3,10 @@
 
 class TRIVIA::CLI
     #This is what you see, the display
+    def initialize
+        TRIVIA::API.new.get_trivia_data
+    end
+
     def run
         greeting
         TRIVIA::API.new.create_object()#.grab_date #gets data from api
@@ -31,7 +35,9 @@ class TRIVIA::CLI
     end
 
     def genre_options
-
+        TRIVIA::TriviaNight.all.each.with_index(1) do |x, questions|
+            puts "#{x}. #{questions.get_question}" 
+        end
     end
 
 end

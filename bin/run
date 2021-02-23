@@ -3,4 +3,5 @@
 require_relative '../config/environment'
 
 TRIVIA::API.new.get_trivia_data
+
 binding.pry

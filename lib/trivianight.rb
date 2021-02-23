@@ -12,6 +12,10 @@ class TRIVIA::TriviaNight
 
     end
 
+    def get_question
+        self.question
+    end
+    
     def self.all 
         @@all
     end
