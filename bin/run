@@ -2,4 +2,5 @@
 
 require_relative '../config/environment'
 
-TRIVIA::CLI.new.greeting
+TRIVIA::API.new.get_trivia_data
+binding.pry
