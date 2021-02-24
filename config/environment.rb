@@ -1,11 +1,13 @@
 require 'pry'
-require 'httparty'
+require 'json'
+require 'net/http'
 
 
-require_relative '../lib/modules/trivia.rb'
+
+require_relative '../lib/modules/trivianight.rb'
 require_relative '../lib/api.rb'
 require_relative '../lib/cli.rb'
-require_relative '../lib/trivianight.rb'
+require_relative '../lib/trivia.rb'
 
 
 

@@ -1,5 +1,6 @@
-class TRIVIA::TriviaNight
+class Trivia
     
+
     @@all = []
    
     def initialize(trivia_hash) #metaprogramming
@@ -8,14 +9,18 @@ class TRIVIA::TriviaNight
             self.send("#{key}=", value)
         end
 
-        @@all << self
+        save
 
-    end
-
-    def get_question
-        self.question
     end
     
+    def all_answers
+        ([@correct_answer] + @incorrect_answer).shuffle
+    end
+
+    def save
+        @@all << self
+    end
+
     def self.all 
         @@all
     end
