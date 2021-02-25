@@ -8,6 +8,7 @@ class  API
         trivia_array = JSON.parse(response)["results"]
         trivia_array.each do |trivia|
             Trivia.new(trivia)
+        
         end
     end
 

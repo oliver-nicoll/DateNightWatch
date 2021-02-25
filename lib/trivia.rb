@@ -14,7 +14,15 @@ class Trivia
     end
     
     def all_answers
-        ([@correct_answer] + @incorrect_answer).shuffle
+        ([@correct_answer] + @incorrect_answers).shuffle
+        # binding.pry
+        end
+
+    def score_all
+        
+        score = 0
+        answers = [] <<
+        score += 1
     end
 
     def save

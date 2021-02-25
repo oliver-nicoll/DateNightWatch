@@ -18,39 +18,45 @@ class CLI       #This is what you see, the display
        
     end
 
-    def trivia_list
-       
- #
-        input = gets.strip.downcase
-            if input == "exit"
-                exit
-            else
-            trivia_selection(trivia_array)
-      
-            end
-    end
+  
 
     def menu
-        puts "Are you ready for some trivia? Type 'yes' to continue
-        or if you wish to exit, type 'exit'"
+        puts "Are you ready for some trivia? Type 'y' to continue
+        or if you wish to exit, type 'n'"
 
          input = gets.strip.downcase
                 # binding.pry
-            if  input == "yes"
+            if  input == "y"
                 trivia_list
                 menu
-            elsif input == "exit"
+            elsif input == "n"
                 exit
             else 
                 invalid_entry
             end
         end
     
-    def trivia_selection(trivia_array)
-        Trivia.all.each.with_index(1) do |question, index|
-            puts "#{index}. #{["question"]} "
-            binding.pry
+    def trivia_list
+        Trivia.all.each.with_index(1) do | trivia, index|
+            puts "#{index}. #{trivia.question}"
         end
+        
+        input = gets.strip.to_i
+        
+        trivia_selection_output(input)
+    end
+
+    def trivia_selection_output(i)
+        puts "_________________________________________"
+        puts "Choose one of the following answers: (either T/F or 1-4)"
+        Trivia.all[i - 1].all_answers.each do |i, index|
+            puts "#{index}. #{i}"
+        end
+        #picks_choice = gets.chomp
+        
+
+
+
     end
         #find method to find each question and go over each one
 
