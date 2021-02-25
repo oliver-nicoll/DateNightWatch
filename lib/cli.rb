@@ -8,6 +8,7 @@ class CLI       #This is what you see, the display
     def call
         greeting
         API.get_data
+        sleep 1
         menu
     end
     
@@ -47,22 +48,26 @@ class CLI       #This is what you see, the display
     end
 
     def trivia_selection_output(i)
-        puts "_________________________________________"
+        puts "-----------------------------------------------------------"
         puts "Choose one of the following answers: (either T/F or 1-4)"
-        Trivia.all[i - 1].all_answers.each do |i, index|
+        puts "___________________________________________________________"
+
+       Trivia.all[i - 1].all_answers.each.with_index(1) do |i, index|
             puts "#{index}. #{i}"
         end
-        #picks_choice = gets.chomp
         
-
-
-
+        choice = gets.strip.to_i
+        #answers_arr << choice  -Where am I getting this new array from?
+        answer_selection(choice)
     end
-        #find method to find each question and go over each one
-
+       
+    def answer_selection(choice_arr)
+        #needs to store your choice for each question and compare it to @correct_answer, if choice == @correct_answer, score += 1
+        #else, false and it won't get added to score
+    end
     def score
         puts "your score is: "
-        #some math method here
+        #method that puts final score /20
     end
 
     def invalid_entry
