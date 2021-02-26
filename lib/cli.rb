@@ -5,7 +5,6 @@ class CLI       #This is what you see, the display
 
     def initialize
         @score = 0
-        @total_questions = 0
         call
     end
 
@@ -29,7 +28,7 @@ class CLI       #This is what you see, the display
 
          input = gets.strip.downcase
                 
-            if  input == "y"
+            if  input == "y" 
                 trivia_list
                 menu
             elsif input == "n"
@@ -37,13 +36,26 @@ class CLI       #This is what you see, the display
             else 
                 invalid_entry
             end
+    end
+
+    def other_menu
+        puts "Do you wish to continue? (y/n)"
+        
+        input = gets.strip.downcase
+
+        if input == "y"
+            trivia_list
+        else input == "n"
+            goodbye
         end
+
+    end
+    
     
     def trivia_list
         puts "Type in the number answer options are."
 
         Trivia.all.each.with_index(1) do | trivia, index|
-            # answers(trivia)
             puts "#{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'")}"
             trivia_selection_output(trivia.question)
         end
@@ -62,16 +74,23 @@ class CLI       #This is what you see, the display
             puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'")}" 
         end
 
-        input = gets.strip.to_i
-        answer_selection(answers[input - 1])
+        input = gets.strip
+            if input.to_i >= 1 && input.to_i <= 4
+                answer_selection(answers[input.to_i - 1])
+            elsif input == "exit"
+                goodbye
+            else
+                puts "Invalid Answer"
+                other_menu
+            end
         score
     end
        
     def answer_selection(answer)
-        @total_questions += 1
         if answer == @current_trivia.correct_answer
             @score += 1
             puts "Correct Answer - Wahoo!"
+            other_menu
         end
     end
 
