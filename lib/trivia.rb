@@ -1,5 +1,5 @@
 class Trivia
-    
+    attr_accessor :score    
 
     @@all = []
    
@@ -15,14 +15,16 @@ class Trivia
     
     def all_answers
         ([@correct_answer] + @incorrect_answers).shuffle
-        # binding.pry
         end
 
-    def score_all
-        
+    def score_all(score)
         score = 0
-        answers = [] <<
-        score += 1
+        answers = []
+        if answers.include?(@correct_answer)
+            score += 1
+            binding.pry
+        end
+
     end
 
     def save

@@ -26,7 +26,7 @@ class CLI       #This is what you see, the display
         or if you wish to exit, type 'n'"
 
          input = gets.strip.downcase
-                # binding.pry
+                
             if  input == "y"
                 trivia_list
                 menu
@@ -38,6 +38,7 @@ class CLI       #This is what you see, the display
         end
     
     def trivia_list
+        puts "Type in the number of the question to see what your answer options are."
         Trivia.all.each.with_index(1) do | trivia, index|
             puts "#{index}. #{trivia.question}"
         end
@@ -57,16 +58,21 @@ class CLI       #This is what you see, the display
         end
         
         choice = gets.strip.to_i
-        #answers_arr << choice  -Where am I getting this new array from?
+        answers = []
+        answers << choice # -Where am I getting this new array from?
         answer_selection(choice)
     end
        
-    def answer_selection(choice_arr)
+    def answer_selection(answers)
+        Trivia.all.score_all(score)
+        binding.pry
+        score
         #needs to store your choice for each question and compare it to @correct_answer, if choice == @correct_answer, score += 1
         #else, false and it won't get added to score
     end
     def score
-        puts "your score is: "
+        puts "your score is: #{score}/20 "
+        menu
         #method that puts final score /20
     end
 
