@@ -1,11 +1,11 @@
 
 class CLI       #This is what you see, the display
-    attr_accessor :answers
+    attr_accessor :answers, :total_questions
     attr_reader :score
 
     def initialize
         @score = 0
-        @total_questions = 0
+        @total_questions = 1
         call
     end
 
@@ -58,10 +58,8 @@ class CLI       #This is what you see, the display
         Trivia.all.each.with_index(1) do | trivia, index|
             puts "#{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
             @current_questions << trivia_selection_output(trivia.question)
-            binding.pry
-            @total_questions -= 1
         end
-        # @total_questions -= 1
+       
             
         twenty_questions
 
@@ -83,29 +81,37 @@ class CLI       #This is what you see, the display
 
             if input.to_i.between?(1, @answers.length)
                 answer_selection(@answers[input.to_i - 1])
+                score
             elsif input == "exit"
                 goodbye
             else
                 puts "Invalid Answer"
-                trivia_list
-                
+                trivia_selection_output(i)
             end
-        score
+    
     end
        
     def answer_selection(answer)
         puts " HI"
-        # binding.pry
+        
         if answer == @current_trivia.correct_answer
-            binding.pry
-            @score += 1
-            @total_questions += 1
-            puts "Correct Answer - Wahoo!"
+           puts "#{@total_questions}"
+            if @total_questions != 20
+                @score += 1
+                @total_questions += 1
+                puts "Correct Answer - Wahoo!"    
+            else
+                twenty_questions
+            end
+
         elsif answer == @current_trivia.incorrect_answers
             puts "Sorry that was incorrect"
             @total_questions += 1
         end
-        twenty_questions
+
+        # if @total_questions = 20
+        #     twenty_questions
+        # end
     end
 
     def score
@@ -122,12 +128,9 @@ class CLI       #This is what you see, the display
     end
 
     def twenty_questions
-        if @current_questions.count == 0 && @total_questions == 
-            goodbye
-        elsif
-             trivia_list
-        end
+       goodbye
     end
+
     def goodbye
         puts "Farewell - Thank you for playing!"
         final_score
