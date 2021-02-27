@@ -1,6 +1,6 @@
 
 class CLI       #This is what you see, the display
-
+    attr_accessor :answers
     attr_reader :score
 
     def initialize
@@ -53,15 +53,12 @@ class CLI       #This is what you see, the display
 
     
     def trivia_list
-        puts "
-        
-        If at any moment you wish to exit, type 'exit'
-        
-        "
+       
         @current_questions= []
         Trivia.all.each.with_index(1) do | trivia, index|
             puts "#{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
             @current_questions << trivia_selection_output(trivia.question)
+            binding.pry
             @total_questions -= 1
         end
         # @total_questions -= 1
@@ -78,30 +75,35 @@ class CLI       #This is what you see, the display
         puts "_________________________________________________________________"
 
         @current_trivia = Trivia.all.find {|x| x.question == i}
-        answers = @current_trivia.all_answers.each.with_index(1) do |i, index|
+        @answers = @current_trivia.all_answers.each.with_index(1) do |i, index|
             puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}" 
         end
-       input = gets.strip.to_i
+    
+        input = gets.strip.downcase
 
-            if answers.count == 2 && input.between?(1, 2)
-                answer_selection(answers[input.to_i - 1])
-            elsif answers.count == 4 && input.between?(1, 4)
-                answer_selection(answers[input.to_i - 1])
+            if input.to_i.between?(1, @answers.length)
+                answer_selection(@answers[input.to_i - 1])
+            elsif input == "exit"
+                goodbye
             else
                 puts "Invalid Answer"
-                menu
+                trivia_list
+                
             end
         score
     end
        
     def answer_selection(answer)
+        puts " HI"
+        # binding.pry
         if answer == @current_trivia.correct_answer
+            binding.pry
             @score += 1
-            @total_questions -= 1
+            @total_questions += 1
             puts "Correct Answer - Wahoo!"
         elsif answer == @current_trivia.incorrect_answers
             puts "Sorry that was incorrect"
-            @total_questions -= 1
+            @total_questions += 1
         end
         twenty_questions
     end
@@ -120,7 +122,7 @@ class CLI       #This is what you see, the display
     end
 
     def twenty_questions
-        if @current_questions.count == 0 && @total_questions == 20
+        if @current_questions.count == 0 && @total_questions == 
             goodbye
         elsif
              trivia_list
