@@ -5,6 +5,7 @@ class CLI       #This is what you see, the display
 
     def initialize
         @score = 0
+        @total_questions = 0
         call
     end
 
@@ -15,18 +16,17 @@ class CLI       #This is what you see, the display
     end
     
     def greeting
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts " Welcome! Enjoy this time with your significant other and play some trivia!"
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "                                                                           Welcome! Enjoy this time with your significant other and play some trivia!"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        
     end
-
   
-
     def menu
-        puts "Are you ready for some trivia? Type 'y' to continue
-        or if you wish to exit, type 'n'"
+        puts "Are you ready for some trivia? Type 'y' to continue or 
+        if you wish to exit, type 'n'"
 
-         input = gets.strip.downcase
+         input = gets.chomp.downcase
                 
             if  input == "y" 
                 trivia_list
@@ -50,15 +50,23 @@ class CLI       #This is what you see, the display
         end
 
     end
-    
+
     
     def trivia_list
-        puts "Type in the number answer options are."
-
+        puts "
+        
+        If at any moment you wish to exit, type 'exit'
+        
+        "
+        @current_questions= []
         Trivia.all.each.with_index(1) do | trivia, index|
-            puts "#{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'")}"
-            trivia_selection_output(trivia.question)
+            puts "#{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
+            @current_questions << trivia_selection_output(trivia.question)
+            @total_questions -= 1
         end
+        # @total_questions -= 1
+            
+        twenty_questions
 
         input = gets.strip.to_i 
     
@@ -71,17 +79,17 @@ class CLI       #This is what you see, the display
 
         @current_trivia = Trivia.all.find {|x| x.question == i}
         answers = @current_trivia.all_answers.each.with_index(1) do |i, index|
-            puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'")}" 
+            puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}" 
         end
+       input = gets.strip.to_i
 
-        input = gets.strip
-            if input.to_i >= 1 && input.to_i <= 4
+            if answers.count == 2 && input.between?(1, 2)
                 answer_selection(answers[input.to_i - 1])
-            elsif input == "exit"
-                goodbye
+            elsif answers.count == 4 && input.between?(1, 4)
+                answer_selection(answers[input.to_i - 1])
             else
                 puts "Invalid Answer"
-                other_menu
+                menu
             end
         score
     end
@@ -89,13 +97,21 @@ class CLI       #This is what you see, the display
     def answer_selection(answer)
         if answer == @current_trivia.correct_answer
             @score += 1
+            @total_questions -= 1
             puts "Correct Answer - Wahoo!"
-            other_menu
+        elsif answer == @current_trivia.incorrect_answers
+            puts "Sorry that was incorrect"
+            @total_questions -= 1
         end
+        twenty_questions
     end
 
     def score
         puts "your score is: #{@score}/20 "
+    end
+
+    def final_score
+        puts "Your final score is : #{@score}/20"
     end
 
     def invalid_entry
@@ -103,8 +119,16 @@ class CLI       #This is what you see, the display
         menu
     end
 
+    def twenty_questions
+        if @current_questions.count == 0 && @total_questions == 20
+            goodbye
+        elsif
+             trivia_list
+        end
+    end
     def goodbye
         puts "Farewell - Thank you for playing!"
+        final_score
         exit
     end
 end
