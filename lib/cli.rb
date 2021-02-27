@@ -96,21 +96,22 @@ class CLI       #This is what you see, the display
     end
        
     def answer_selection(answer)
-       
+    
         if answer == "#{@current_trivia.correct_answer}"
-            puts "                                                                  Correct Answer - Wahoo!                                                                     "    
-                if @total_questions != 20
-                    @score += 1
-                    @total_questions += 1
-                else
-                    twenty_questions
-                end
-        elsif answer == "#{@current_trivia.incorrect_answers}"
-            binding.pry
-            puts "                                                                          Sorry that was incorrect                                                                    "
+            if @total_questions != 20
+                @score += 1
+                @total_questions += 1
+            else
+                twenty_questions
+            end
+            puts "                                                                   Correct Answer - Wahoo!                                                                     "   
+        else answer == "#{@current_trivia.incorrect_answers}"
+            puts "                                                                   Sorry that was incorrect                                                                    "
             @total_questions += 1
         end
+
     end
+
 
     def score
         puts "                                                                      Your score is: #{@score}/20 "
@@ -127,7 +128,7 @@ class CLI       #This is what you see, the display
 
     def twenty_questions
         puts "You got through the game - Congrats!"
-        menu
+        goodbye
     end
 
     def goodbye
