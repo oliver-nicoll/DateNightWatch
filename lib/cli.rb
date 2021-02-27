@@ -23,7 +23,7 @@ class CLI       #This is what you see, the display
     end
   
     def menu
-        puts "                                                                                      Are you ready for some trivia? Type 'y' to continue or 
+        puts "                                                                                    Are you ready for some trivia? Type 'y' to continue or 
                                                                                                     if you wish to exit, type 'n'                                                               "
 
          input = gets.chomp.downcase
@@ -84,9 +84,10 @@ class CLI       #This is what you see, the display
 
             if input.to_i.between?(1, @answers.length)
                 answer_selection(@answers[input.to_i - 1])
+                
                 score
             elsif input == "exit"
-                other_menu
+                goodbye
             else
                 puts "Invalid Answer"
                 trivia_selection_output(i)
@@ -95,16 +96,17 @@ class CLI       #This is what you see, the display
     end
        
     def answer_selection(answer)
-        if answer == @current_trivia.correct_answer
-           puts "#{@total_questions}"
+       
+        if answer == "#{@current_trivia.correct_answer}"
+            puts "                                                                  Correct Answer - Wahoo!                                                                     "    
                 if @total_questions != 20
                     @score += 1
                     @total_questions += 1
-                    puts "                                                                  Correct Answer - Wahoo!                                                                     "    
                 else
                     twenty_questions
                 end
-        elsif answer == @current_trivia.incorrect_answers
+        elsif answer == "#{@current_trivia.incorrect_answers}"
+            binding.pry
             puts "                                                                          Sorry that was incorrect                                                                    "
             @total_questions += 1
         end
