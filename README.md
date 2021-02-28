@@ -39,6 +39,10 @@ If not, just run the file by executing:
 
 	$ ruby bin/run
 
+## Sample Demo Video
+
+To look at a sample demo video click [here](https://www.youtube.com/watch?v=HQfbfZYmyMk)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/oliver-nicoll/Date_Night_Trivia.git
