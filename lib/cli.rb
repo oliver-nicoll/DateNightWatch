@@ -23,9 +23,8 @@ class CLI
     end
   
     def menu
-        puts "     Are you ready for some trivia? Type 'y' to continue or 
-                             if you wish to exit, type 'n'   "
-
+        puts "                           Are you ready for some trivia? Type 'y' to continue or 
+                                        if you wish to exit, type 'n'   "
          input = gets.chomp.downcase
                 
             if  input == "y" 
@@ -39,7 +38,7 @@ class CLI
     end
 
     def other_menu
-        puts "Uh-oh, seem like you typed 'exit', do you wish to leave? (y/n)"
+        puts "Uh-oh, seem like you typed 'exit', do you wish to leave? (y/n)".colorize(:yellow)
         
         input = gets.strip.downcase
 
@@ -93,7 +92,7 @@ class CLI
             elsif input == "exit"
                 goodbye
             else
-                puts "Invalid Answer"
+                puts "Invalid Answer".colorize(:yellow)
                 trivia_selection_output(i)
             end
     end
@@ -106,9 +105,9 @@ class CLI
             else
                 twenty_questions
             end
-            puts "Correct Answer - Wahoo!"   
+            puts "Correct Answer - Wahoo!".colorize(:green) 
         else answer == "#{@current_trivia.incorrect_answers}"
-            puts "Sorry that was incorrect"
+            puts "Sorry that was incorrect".colorize(:red)
             @total_questions += 1
         end
 
@@ -119,21 +118,21 @@ class CLI
     end
 
     def final_score
-        puts " Your final score is : #{@score}/20 "
+        puts " Your final score is : #{@score}/20 ".colorize(:green)
     end
 
     def invalid_entry   
-        puts " Invalid entry, please try again. "
+        puts " Invalid entry, please try again.".colorize(:yellow)
         menu
     end
 
     def twenty_questions
-        puts "You got through the game - Congrats!"
+        puts "You got through the game - Congrats!".colorize(:green)
         goodbye
     end
 
     def goodbye
-        puts "See you later!"
+        puts "Thanks for playing Date Night Trivia!"
         final_score
         exit
     end
