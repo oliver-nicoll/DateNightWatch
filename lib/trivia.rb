@@ -13,7 +13,6 @@ class Trivia
     def all_answers
         ([@correct_answer] + @incorrect_answers).shuffle
     end
-    
 
     def save
         @@all << self
@@ -22,7 +21,4 @@ class Trivia
     def self.all 
         @@all
     end
-
-    #this is where all the info is stored so you dont have to get the info from the api again and again
-    
 end

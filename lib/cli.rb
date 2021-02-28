@@ -1,5 +1,5 @@
 
-class CLI       #This is what you see, the display
+class CLI       
     attr_accessor :answers, :total_questions
     attr_reader :score
 
@@ -16,15 +16,15 @@ class CLI       #This is what you see, the display
     end
     
     def greeting
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts "                                                                          Welcome! Enjoy this time with your significant other and play some trivia!"
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "                Welcome! Enjoy this time with your significant other and play some trivia!"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         
     end
   
     def menu
-        puts "                                                                                    Are you ready for some trivia? Type 'y' to continue or 
-                                                                                                    if you wish to exit, type 'n'                                                               "
+        puts "     Are you ready for some trivia? Type 'y' to continue or 
+                             if you wish to exit, type 'n'   "
 
          input = gets.chomp.downcase
                 
@@ -39,14 +39,14 @@ class CLI       #This is what you see, the display
     end
 
     def other_menu
-        puts "                                                                                  Uh-oh, seem like you typed 'exit', do you wish to leave? (y/n)                                                       "
+        puts "Uh-oh, seem like you typed 'exit', do you wish to leave? (y/n)"
         
         input = gets.strip.downcase
 
         if input == "n"
             trivia_list
         elsif input == "y"
-            puts "                                                                                                Thanks for playing some Trivia                                                                         "
+            puts "Thanks for playing some Trivia"
             goodbye
         else 
             invalid_entry
@@ -56,25 +56,30 @@ class CLI       #This is what you see, the display
 
     
     def trivia_list
-       
-        @current_questions= []
+        puts "Question:"
+        puts ""
+
         Trivia.all.each.with_index(1) do | trivia, index|
-            puts "                                    #{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
-            @current_questions << trivia_selection_output(trivia.question)
+            puts "  #{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
+            trivia_selection_output(trivia.question)
         end    
+
         twenty_questions
         input = gets.strip.to_i 
     end
 
     def trivia_selection_output(i)
-        puts "___________________________________________________________________________________________________________________________________________________"
-        puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-        puts "___________________________________________________________________________________________________________________________________________________"
-        puts "                                      Choose one of the following answers: (enter the number of answer)                                            "
-        puts "---------------------------------------------------------------------------------------------------------------------------------------------------"
-        puts "                                               If you wish to Exit at anytime, type 'exit'                                                         "
-        puts "___________________________________________________________________________________________________________________________________________________"
-
+        puts "__________________________________________________________________________________________"
+        puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+        puts "__________________________________________________________________________________________"
+        puts "             Choose one of the following answers: (enter the number of answer)            "
+        puts "------------------------------------------------------------------------------------------"
+        puts "                        If you wish to Exit at anytime, type 'exit'                       "
+        puts "__________________________________________________________________________________________"
+        puts ""
+        puts "Answers:"
+        puts ""
+        
         @current_trivia = Trivia.all.find {|x| x.question == i}
         @answers = @current_trivia.all_answers.each.with_index(1) do |i, index|
             puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}" 
@@ -84,7 +89,6 @@ class CLI       #This is what you see, the display
 
             if input.to_i.between?(1, @answers.length)
                 answer_selection(@answers[input.to_i - 1])
-                
                 score
             elsif input == "exit"
                 goodbye
@@ -92,11 +96,9 @@ class CLI       #This is what you see, the display
                 puts "Invalid Answer"
                 trivia_selection_output(i)
             end
-    
     end
        
     def answer_selection(answer)
-    
         if answer == "#{@current_trivia.correct_answer}"
             if @total_questions != 20
                 @score += 1
@@ -104,25 +106,24 @@ class CLI       #This is what you see, the display
             else
                 twenty_questions
             end
-            puts "                                                                   Correct Answer - Wahoo!                                                                     "   
+            puts "Correct Answer - Wahoo!"   
         else answer == "#{@current_trivia.incorrect_answers}"
-            puts "                                                                   Sorry that was incorrect                                                                    "
+            puts "Sorry that was incorrect"
             @total_questions += 1
         end
 
     end
 
-
     def score
-        puts "                                                                      Your score is: #{@score}/20 "
+        puts " Your score is: #{@score}/20 "
     end
 
     def final_score
-        puts "                                                                   Your final score is : #{@score}/20                                                                     "
+        puts " Your final score is : #{@score}/20 "
     end
 
     def invalid_entry   
-        puts "                                                                   Invalid entry, please try again.                                                                         "
+        puts " Invalid entry, please try again. "
         menu
     end
 
