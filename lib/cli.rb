@@ -58,7 +58,7 @@ class CLI
         puts "Question:"
         puts ""
 
-        Trivia.all.each.with_index(1) do | trivia, index|
+        Trivia.all.each.with_index(1) do |trivia, index|
             puts "  #{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
             trivia_selection_output(trivia.question)
         end    
@@ -67,7 +67,7 @@ class CLI
         input = gets.strip.to_i 
     end
 
-    def trivia_selection_output(i)
+    def trivia_selection_output(answer)
         puts "__________________________________________________________________________________________"
         puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
         puts "__________________________________________________________________________________________"
@@ -79,21 +79,21 @@ class CLI
         puts "Answers:"
         puts ""
         
-        @current_trivia = Trivia.all.find {|x| x.question == i}
-        @answers = @current_trivia.all_answers.each.with_index(1) do |i, index|
-            puts "#{index}. #{i.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}" 
+        @current_trivia = Trivia.all.find {|trivia| trivia.question == answer}
+        answers = @current_trivia.all_answers.each.with_index(1) do |answer, index|
+            puts "#{index}. #{answer.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}" 
         end
     
         input = gets.strip.downcase
 
-            if input.to_i.between?(1, @answers.length)
-                answer_selection(@answers[input.to_i - 1])
+            if input.to_i.between?(1, answers.length)
+                answer_selection(answers[input.to_i - 1])
                 score
             elsif input == "exit"
                 goodbye
             else
                 puts "Invalid Answer".colorize(:yellow)
-                trivia_selection_output(i)
+                trivia_selection_output(answer)
             end
     end
        
