@@ -19,13 +19,12 @@ class CLI
         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         puts "                Welcome! Enjoy this time with your significant other and play some trivia!".colorize(:light_magenta)
         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        
     end
   
     def menu
         puts "                           Are you ready for some trivia? Type 'y' to continue or 
                                         if you wish to exit, type 'n'   "
-         input = gets.chomp.downcase
+         input = gets.strip.downcase
                 
             if  input == "y" 
                 trivia_list
@@ -61,10 +60,8 @@ class CLI
         Trivia.all.each.with_index(1) do |trivia, index|
             puts "  #{index}. #{trivia.question.gsub("&#039;","'").gsub("&quot;", "'").gsub("&amp;", "&").gsub("&deg;", " degrees ").gsub("&ndash;", "-")}"
             trivia_selection_output(trivia.question)
-        end    
-
+        end   
         twenty_questions
-        input = gets.strip.to_i 
     end
 
     def trivia_selection_output(answer)
