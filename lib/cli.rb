@@ -1,4 +1,3 @@
-
 class CLI       
     attr_accessor :answers, :total_questions
     attr_reader :score
@@ -96,16 +95,16 @@ class CLI
        
     def answer_selection(answer)
         if answer == "#{@current_trivia.correct_answer}"
-            if @total_questions != 20
+            if total_questions != 20
                 @score += 1
-                @total_questions += 1
+                self.total_questions += 1
             else
                 twenty_questions
             end
             puts "Correct Answer - Wahoo!".colorize(:green) 
         else answer == "#{@current_trivia.incorrect_answers}"
             puts "Sorry that was incorrect".colorize(:red)
-            @total_questions += 1
+            self.total_questions += 1
         end
 
     end
